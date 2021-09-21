@@ -1,0 +1,13 @@
+- hosts: prod
+  vars:
+    monitoring_path: "{{ third_party_packages_path }}/monitoring"
+    # prometheus_path: "{{ third_party_packages_path }}/prometheus"
+    # grafana_path: "{{ third_party_packages_path }}/grafana"
+    node_exporter_path: "{{ third_party_packages_path }}/node_exporter"
+    # alertmanager_path: "{{ third_party_packages_path }}/alertmanager"
+  tasks:
+    - include_role:
+        name: docker
+        tasks_from: install
+      tags: docker
+
