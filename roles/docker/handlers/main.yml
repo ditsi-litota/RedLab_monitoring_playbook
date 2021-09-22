@@ -1,8 +1,8 @@
-- name: install pip
+- name: install_pip
   apt:
     name: "python3-pip"
 
-- name: install docker module
+- name: install_docker_module
   pip:
     name: docker
 

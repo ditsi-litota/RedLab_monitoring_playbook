@@ -9,3 +9,4 @@
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /:/rootfs:ro
+    container_default_behavior: compatibility

@@ -22,7 +22,7 @@
   "editable": true,
   "gnetId": 1229,
   "graphTooltip": 0,
-  "iteration": 1632343068632,
+  "iteration": 1632351041204,
   "links": [],
   "panels": [
     {
@@ -64,11 +64,11 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 8,
+        "w": 24,
         "x": 0,
         "y": 0
       },
-      "id": 7,
+      "id": 10000,
       "interval": null,
       "links": [],
       "maxDataPoints": 100,
@@ -128,11 +128,11 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 8,
-        "x": 8,
-        "y": 0
+        "w": 24,
+        "x": 0,
+        "y": 7
       },
-      "id": 25,
+      "id": 10001,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -172,12 +172,12 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 7,
-        "w": 8,
-        "x": 16,
-        "y": 0
+        "w": 24,
+        "x": 0,
+        "y": 14
       },
       "hiddenSeries": false,
-      "id": 22,
+      "id": 10002,
       "legend": {
         "alignAsTable": false,
         "avg": false,
@@ -289,12 +289,12 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 7,
-        "w": 8,
+        "w": 24,
         "x": 0,
-        "y": 7
+        "y": 21
       },
       "hiddenSeries": false,
-      "id": 14,
+      "id": 10003,
       "legend": {
         "alignAsTable": false,
         "avg": false,
@@ -405,12 +405,12 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 7,
-        "w": 8,
-        "x": 8,
-        "y": 7
+        "w": 24,
+        "x": 0,
+        "y": 28
       },
       "hiddenSeries": false,
-      "id": 19,
+      "id": 10004,
       "legend": {
         "avg": false,
         "current": false,
@@ -500,12 +500,12 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 7,
-        "w": 8,
-        "x": 16,
-        "y": 7
+        "w": 24,
+        "x": 0,
+        "y": 35
       },
       "hiddenSeries": false,
-      "id": 15,
+      "id": 10005,
       "legend": {
         "avg": false,
         "current": false,
@@ -596,12 +596,12 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 7,
-        "w": 8,
+        "w": 24,
         "x": 0,
-        "y": 14
+        "y": 42
       },
       "hiddenSeries": false,
-      "id": 20,
+      "id": 10006,
       "legend": {
         "alignAsTable": false,
         "avg": false,
@@ -690,12 +690,12 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 7,
-        "w": 8,
-        "x": 8,
-        "y": 14
+        "w": 24,
+        "x": 0,
+        "y": 49
       },
       "hiddenSeries": false,
-      "id": 21,
+      "id": 10007,
       "legend": {
         "alignAsTable": false,
         "avg": false,
@@ -807,12 +807,12 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 7,
-        "w": 8,
-        "x": 16,
-        "y": 14
+        "w": 24,
+        "x": 0,
+        "y": 56
       },
       "hiddenSeries": false,
-      "id": 23,
+      "id": 10008,
       "legend": {
         "avg": false,
         "current": false,
@@ -1074,7 +1074,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Docker Engine Metrics Copy",
+  "title": "Docker",
   "uid": "fFhlKOHnz",
   "version": 1
 }

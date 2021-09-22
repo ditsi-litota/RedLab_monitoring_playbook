@@ -19,6 +19,8 @@ services:
     restart: always
     networks:
       - monitoring
+    volumes:
+      - "{{ alertmanager_etc_path }}:/etc/alertmanager"
     user: "{{ monitoring_uid }}:{{ monitoring_uid }}"
     mem_limit: "300m"
     cpus: "1"

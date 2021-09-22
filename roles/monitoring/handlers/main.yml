@@ -1,0 +1,7 @@
+- name: show_password
+  ansible.builtin.debug:
+    msg:
+      - "Grafana URL: http://{{ hostvars['server'].ansible_host }}:{{ grafana_external_port }}"
+      - "Grafana password for 'admin' user: {{ grafana_admin_password }}"
+      - ""
+      - "Prometheus URL: http://{{ hostvars['server'].ansible_host }}:{{ prometheus_external_port }}"
