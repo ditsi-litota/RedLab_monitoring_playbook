@@ -7,8 +7,7 @@ services:
     networks:
       - monitoring
     ports: 
-      - "9090:9090"
-    # environment:
+      - "{{ prometheus_external_port }}:{{ prometheus_port }}"
     volumes:
       - "{{ prometheus_etc_path }}:/etc/prometheus"
     user: "{{ monitoring_uid }}:{{ monitoring_uid }}"
@@ -20,9 +19,6 @@ services:
     restart: always
     networks:
       - monitoring
-    # environment:
-    # volumes:
-    #   - ""
     user: "{{ monitoring_uid }}:{{ monitoring_uid }}"
     mem_limit: "300m"
     cpus: "1"
@@ -34,10 +30,12 @@ services:
     networks:
       - monitoring
     ports: 
-      - "3000:3000"
-    # environment:
-    # volumes:
-    #   - ""
+      - "{{ grafana_external_port }}:3000"
+    volumes:
+      - {{ grafana_etc_path }}:/etc/grafana
+      - {{ grafana_provisioning_path }}:/etc/grafana/provisioning
+      - {{ grafana_lib_path }}:/var/lib/grafana
+      - {{ grafana_log_path }}:/var/log/grafana
     user: "{{ monitoring_uid }}:{{ monitoring_uid }}"
     mem_limit: "500m"
     cpus: "1"

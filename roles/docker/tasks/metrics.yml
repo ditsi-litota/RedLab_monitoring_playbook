@@ -1,5 +1,5 @@
 - name: template daemon.json
-  template:
+  ansible.builtin.template:
     src: daemon.json
     dest: /etc/docker/daemon.json
     mode: "0600"
