@@ -15,6 +15,7 @@
     node_exporter_external_port: 9100
     docker_subnet: 172.16.238.0/24
     docker_gateway: 172.16.238.1
+    docker_exporter_external_port: 9323
   tasks:
     - include_role:
         name: docker
@@ -23,7 +24,8 @@
           tags: docker
       with_items:
         - docker
-        # - docker_compose
+        - docker_compose
+        - metrics
       tags: docker
 
     - name: run monitoring server

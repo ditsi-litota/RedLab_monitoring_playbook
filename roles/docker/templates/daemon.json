@@ -1,0 +1,4 @@
+{
+    "metrics-addr" : "{{ docker_gateway }}:{{ docker_exporter_external_port }}",
+    "experimental" : true
+}

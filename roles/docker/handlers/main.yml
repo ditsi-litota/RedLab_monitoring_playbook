@@ -5,3 +5,8 @@
 - name: install docker module
   pip:
     name: docker
+
+- name: restart_docker_daemon
+  systemd:
+    name: docker
+    state: restarted
