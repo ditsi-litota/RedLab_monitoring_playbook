@@ -1,0 +1,51 @@
+version: '2.2'
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.29.2
+    restart: always
+    networks:
+      - monitoring
+    ports: 
+      - "9090:9090"
+    # environment:
+    volumes:
+      - "{{ prometheus_etc_path }}:/etc/prometheus"
+    user: "{{ monitoring_uid }}:{{ monitoring_uid }}"
+    mem_limit: "500m"
+    cpus: "1"
+
+  alertmanager:
+    image: prom/alertmanager:v0.22.2
+    restart: always
+    networks:
+      - monitoring
+    # environment:
+    # volumes:
+    #   - ""
+    user: "{{ monitoring_uid }}:{{ monitoring_uid }}"
+    mem_limit: "300m"
+    cpus: "1"
+    depends_on: [ prometheus ]
+    
+  grafana:
+    image: grafana/grafana:8.1.5
+    restart: always
+    networks:
+      - monitoring
+    ports: 
+      - "3000:3000"
+    # environment:
+    # volumes:
+    #   - ""
+    user: "{{ monitoring_uid }}:{{ monitoring_uid }}"
+    mem_limit: "500m"
+    cpus: "1"
+    depends_on: [ prometheus ]
+
+networks:
+  monitoring:
+    ipam:
+      config:
+        - subnet: {{ docker_subnet }}
+          gateway: {{ docker_gateway }}

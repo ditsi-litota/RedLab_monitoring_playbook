@@ -1,0 +1,3 @@
+- name: install docker-ce
+  apt:
+    name: "docker-compose"

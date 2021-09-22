@@ -1,0 +1,11 @@
+- community.docker.docker_container:
+    name: node-exporter
+    image: prom/node-exporter:v1.2.2
+    restart_policy: always
+    published_ports:
+      - "127.0.0.1:{{ node_exporter_external_port }}:9100"
+      - "{{ docker_gateway }}:{{ node_exporter_external_port }}:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro

@@ -1,13 +1,85 @@
 - hosts: prod
   vars:
+    monitoring_user: nobody
+    monitoring_group: nogroup
+    monitoring_uid: 65534
     monitoring_path: "{{ third_party_packages_path }}/monitoring"
-    # prometheus_path: "{{ third_party_packages_path }}/prometheus"
+    prometheus_path: "{{ monitoring_path }}/prometheus"
+    prometheus_etc_path: "{{ prometheus_path }}/etc"
     # grafana_path: "{{ third_party_packages_path }}/grafana"
     node_exporter_path: "{{ third_party_packages_path }}/node_exporter"
     # alertmanager_path: "{{ third_party_packages_path }}/alertmanager"
+    prometheus_port: 9090
+    prometheus_external_port: 9090
+    alertmanager_port: 9093
+    node_exporter_external_port: 9100
+    docker_subnet: 172.16.238.0/24
+    docker_gateway: 172.16.238.1
   tasks:
     - include_role:
         name: docker
-        tasks_from: install
+        tasks_from: "{{ item }}"
+        apply:
+          tags: docker
+      with_items:
+        - docker
+        # - docker_compose
       tags: docker
 
+    - name: run monitoring server
+      block:
+        - name: create user
+          ansible.builtin.user:
+            name: "{{ monitoring_user }}"
+            uid: "{{ monitoring_uid }}"
+            group: "{{ monitoring_group }}"
+            home: "{{ monitoring_path }}"
+            shell: "/bin/bash"
+        - name: template prometheus configs
+          template:
+            src: "{{ item.src }}"
+            dest: "{{ item.dest }}"
+            owner: "{{ monitoring_user }}"
+            group: "{{ monitoring_group }}"
+          with_items:
+            - {src: "prometheus/prometheus.yml", dest: "{{ prometheus_etc_path }}"}
+            - {src: "prometheus/alerts.yml", dest: "{{ prometheus_etc_path }}"}
+        # - name: template grafana configs
+        #   template:
+        #     src: "{{ item.src }}"
+        #     dest: "{{ item.dest }}"
+        #     owner: "{{ monitoring_user }}"
+        #     group: "{{ monitoring_group }}"
+        #   with_items:
+        #     - {src: "grafana/grafana.yml", dest: "{{ grafana_etc_path }}"}
+        #     - {src: "grafana/alerts.yml", dest: "{{ grafana_etc_path }}"}
+        # - name: template alertmanager configs
+        #   template:
+        #     src: "{{ item.src }}"
+        #     dest: "{{ item.dest }}"
+        #     owner: "{{ monitoring_user }}"
+        #     group: "{{ monitoring_group }}"
+        #   with_items:
+        #     - {src: "alertmanager/alertmanager.yml", dest: "{{ alertmanager_etc_path }}"}
+        #     - {src: "alertmanager/alerts.yml", dest: "{{ alertmanager_etc_path }}"}
+        - name: template docker-compose.yml
+          template:
+            src: docker-compose.yml
+            dest: "{{ monitoring_path }}/"
+            owner: "{{ monitoring_user }}"
+            group: "{{ monitoring_group }}"
+        - name: down server
+          community.docker.docker_compose:
+            project_src: "{{ monitoring_path }}"
+            state: absent
+        - name: up server
+          community.docker.docker_compose:
+            project_src: "{{ monitoring_path }}"
+      tags: server
+
+    - include_role:
+        name: node_exporter
+        tasks_from: run
+        apply:
+          tags: node
+      tags: node #!
